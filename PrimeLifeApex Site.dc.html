@@ -84,7 +84,7 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <!-- hero -->
     <section style="position:relative;background:#17366b;color:#fff;overflow:hidden">
-      <div style="position:absolute;inset:0"><image-slot id="home-hero" shape="rect" fit="cover" placeholder="ลาก/วางรูป hero (engineer · lab)"></image-slot></div>
+      <div style="position:absolute;inset:0"><image-slot id="home-hero" src="./assets/hero-lab-wind.png" shape="rect" fit="cover" placeholder="ลาก/วางรูป hero (engineer · lab)"></image-slot></div>
       <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(15,26,54,.96) 0%,rgba(15,26,54,.78) 48%,rgba(15,26,54,.3) 100%)"></div>
       <div style="position:relative;pointer-events:none;max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,104px) clamp(20px,5vw,32px) clamp(68px,9vw,116px)">
         <div style="max-width:720px">
@@ -107,7 +107,7 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
         <div onClick="{{ goMedical }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(20,30,60,.06)" style-hover="box-shadow:0 14px 40px rgba(20,30,60,.14)">
-          <div style="height:230px"><image-slot id="home-div-med" shape="rect" placeholder="รูป CGM บนแขน"></image-slot></div>
+          <div style="height:230px"><image-slot id="home-div-med" src="./assets/cgm-sensor-app.png" shape="rect" placeholder="รูป CGM บนแขน"></image-slot></div>
           <div style="padding:32px 34px 36px;border-top:3px solid #14839c">
             <div style="font-size:11px;font-weight:600;letter-spacing:.2em;color:#14839c;margin-bottom:12px">{{ t.home.medTag }}</div>
             <h3 style="font-family:Spectral,serif;font-weight:500;font-size:27px;margin:0 0 12px;color:#17366b">{{ t.home.medTitle }}</h3>
@@ -116,7 +116,7 @@
           </div>
         </div>
         <div onClick="{{ goEnergy }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(20,30,60,.06)" style-hover="box-shadow:0 14px 40px rgba(20,30,60,.14)">
-          <div style="height:230px"><image-slot id="home-div-energy" shape="rect" placeholder="รูปกังหันลม"></image-slot></div>
+          <div style="height:230px"><image-slot id="home-div-energy" src="./assets/wind-farm-coastal.png" shape="rect" placeholder="รูปกังหันลม"></image-slot></div>
           <div style="padding:32px 34px 36px;border-top:3px solid #2f6cb5">
             <div style="font-size:11px;font-weight:600;letter-spacing:.2em;color:#285a97;margin-bottom:12px">{{ t.home.enTag }}</div>
             <h3 style="font-family:Spectral,serif;font-weight:500;font-size:27px;margin:0 0 12px;color:#17366b">{{ t.home.enTitle }}</h3>
@@ -167,7 +167,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px">
         <sc-for list="{{ t.home.posts }}" as="p" hint-placeholder-count="3">
           <div onClick="{{ goBlog }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden" style-hover="box-shadow:0 12px 32px rgba(20,30,60,.12)">
-            <div style="height:170px"><image-slot id="home-post-{{ $index }}" shape="rect" placeholder="รูปบทความ"></image-slot></div>
+            <div style="height:170px"><image-slot id="home-post-{{ $index }}" src="./assets/cgm-sensor-app.png" shape="rect" placeholder="รูปบทความ"></image-slot></div>
             <div style="padding:22px 24px 26px">
               <div style="font-size:10px;font-weight:600;letter-spacing:.16em;color:#285a97;margin-bottom:10px">{{ p.cat }}</div>
               <h4 style="font-size:17px;font-weight:600;line-height:1.35;color:#17366b;margin:0 0 12px">{{ p.title }}</h4>
@@ -209,7 +209,7 @@
           <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0 0 14px">{{ t.med.flagP1 }}</p>
           <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0">{{ t.med.flagP2 }}</p>
         </div>
-        <div style="height:400px"><image-slot id="med-flag" shape="rounded" radius="8" placeholder="รูปเครื่อง CGM + แอป"></image-slot></div>
+        <div style="height:400px"><image-slot id="med-flag" src="./assets/cgm-sensor-app.png" shape="rounded" radius="8" placeholder="รูปเครื่อง CGM + แอป"></image-slot></div>
       </div>
     </section>
 
@@ -277,7 +277,7 @@
   <!-- ===================== ENERGY ===================== -->
   <sc-if value="{{ isEnergy }}" hint-placeholder-val="{{ true }}">
     <section style="position:relative;background:#0d2a54;color:#fff;overflow:hidden">
-      <div style="position:absolute;inset:0"><image-slot id="en-hero" shape="rect" fit="cover" placeholder="ลาก/วางรูปกังหันลม"></image-slot></div>
+      <div style="position:absolute;inset:0"><image-slot id="en-hero" src="./assets/wind-farm-coastal.png" shape="rect" fit="cover" placeholder="ลาก/วางรูปกังหันลม"></image-slot></div>
       <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(15,26,54,.95),rgba(15,26,54,.55))"></div>
       <div style="position:relative;pointer-events:none;max-width:1200px;margin:0 auto;padding:clamp(52px,8vw,80px) clamp(20px,5vw,32px) clamp(56px,8vw,88px)">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px"><span style="width:26px;height:1px;background:#2f6cb5"></span><span style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#8fb8e6">{{ t.en.eyebrow }}</span></div>
@@ -288,7 +288,7 @@
 
     <section style="max-width:1200px;margin:0 auto;padding:72px 32px 0">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
-        <div style="height:400px"><image-slot id="en-offer" shape="rounded" radius="8" placeholder="รูปฟาร์มกังหันลม"></image-slot></div>
+        <div style="height:400px"><image-slot id="en-offer" src="./assets/wind-farm-coastal.png" shape="rounded" radius="8" placeholder="รูปฟาร์มกังหันลม"></image-slot></div>
         <div>
           <div style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#285a97;margin-bottom:14px">{{ t.en.offerTag }}</div>
           <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(24px,3.2vw,34px);line-height:1.2;margin:0 0 18px;color:#17366b">{{ t.en.offerTitle }}</h2>
@@ -318,7 +318,7 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px">
           <sc-for list="{{ t.en.apps }}" as="a" hint-placeholder-count="3">
             <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden">
-              <div style="height:150px"><image-slot id="en-app-{{ $index }}" shape="rect" placeholder="รูป"></image-slot></div>
+              <div style="height:150px"><image-slot id="en-app-{{ $index }}" src="./assets/wind-farm-coastal.png" shape="rect" placeholder="รูป"></image-slot></div>
               <div style="padding:24px 26px 28px">
                 <h4 style="font-size:17px;font-weight:600;color:#17366b;margin:0 0 10px">{{ a.t }}</h4>
                 <p style="font-size:14px;line-height:1.6;color:#58627a;margin:0">{{ a.d }}</p>
@@ -358,7 +358,7 @@
       </div>
       <!-- featured -->
       <div onClick="{{ goBlog }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;margin-bottom:56px">
-        <div style="min-height:320px"><image-slot id="blog-feat" shape="rect" placeholder="รูปบทความเด่น"></image-slot></div>
+        <div style="min-height:320px"><image-slot id="blog-feat" src="./assets/cgm-sensor-app.png" shape="rect" placeholder="รูปบทความเด่น"></image-slot></div>
         <div style="padding:clamp(28px,4vw,44px) clamp(24px,4vw,44px);display:flex;flex-direction:column;justify-content:center">
           <div style="font-size:10px;font-weight:600;letter-spacing:.18em;color:#285a97;margin-bottom:14px">{{ t.blog.featCat }}</div>
           <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(22px,2.8vw,30px);line-height:1.22;color:#17366b;margin:0 0 14px">{{ t.blog.featTitle }}</h2>
@@ -376,7 +376,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px">
         <sc-for list="{{ t.blog.posts }}" as="p" hint-placeholder-count="6">
           <div onClick="{{ goBlog }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden" style-hover="box-shadow:0 12px 32px rgba(20,30,60,.12)">
-            <div style="height:170px"><image-slot id="blog-post-{{ $index }}" shape="rect" placeholder="รูป"></image-slot></div>
+            <div style="height:170px"><image-slot id="blog-post-{{ $index }}" src="./assets/partners-office.png" shape="rect" placeholder="รูป"></image-slot></div>
             <div style="padding:22px 24px 26px">
               <div style="font-size:10px;font-weight:600;letter-spacing:.16em;color:#285a97;margin-bottom:10px">{{ p.cat }}</div>
               <h4 style="font-size:17px;font-weight:600;line-height:1.35;color:#17366b;margin:0 0 12px">{{ p.title }}</h4>
@@ -444,7 +444,7 @@
               </div>
             </sc-for>
           </div>
-          <div style="height:180px"><image-slot id="contact-map" shape="rounded" radius="10" placeholder="แผนที่ / ภาพสำนักงาน"></image-slot></div>
+          <div style="height:180px"><image-slot id="contact-map" src="./assets/partners-office.png" shape="rounded" radius="10" placeholder="แผนที่ / ภาพสำนักงาน"></image-slot></div>
         </div>
       </div>
       <div style="height:96px"></div>
