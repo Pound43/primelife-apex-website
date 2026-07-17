@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#f2f6fb;font-family:"IBM Plex Sans Thai",system-ui,sans-serif;color:#142743;-webkit-font-smoothing:antialiased}
+  a{color:#14839c;text-decoration:none}
+  a:hover{color:#17366b}
+  ::selection{background:#2f6cb5;color:#fff}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <div style="position:absolute;width:0;height:0;overflow:hidden"><x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1px,1px"></x-import></div>
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0d2a54"/><polygon points="50,26 74,72 26,72" fill="none" stroke="#2f6cb5" stroke-width="4"/><polygon points="50,26 58,42 42,42" fill="#8fb8e6"/><text x="50" y="90" font-family="sans-serif" font-size="16" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="1">PLA</text></svg></template>
+
+  <!-- ===================== NAV ===================== -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(242,246,251,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(17,26,48,.1)">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,5vw,32px)">
+      <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;cursor:pointer">
+        <div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:17px solid #17366b;position:relative">
+          <div style="position:absolute;top:5px;left:-4px;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:7px solid #2f6cb5"></div>
+        </div>
+        <div style="line-height:1.02">
+          <div style="font-weight:700;letter-spacing:.13em;font-size:14px;color:#17366b">PRIME LIFE APEX</div>
+          <div style="font-size:8px;letter-spacing:.28em;color:#2f6cb5;font-weight:600">SUSTAINABILITY · LONGEVITY · PEAK PERFORMANCE</div>
+        </div>
+      </div>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:32px">
+          <nav style="display:flex;align-items:center;gap:24px;font-size:14px;font-weight:500">
+            <span onClick="{{ goHome }}" style="cursor:pointer;color:{{ navc.home }}">{{ t.nav.home }}</span>
+            <span onClick="{{ goMedical }}" style="cursor:pointer;color:{{ navc.medical }}">{{ t.nav.medical }}</span>
+            <span onClick="{{ goEnergy }}" style="cursor:pointer;color:{{ navc.energy }}">{{ t.nav.energy }}</span>
+            <span onClick="{{ goBlog }}" style="cursor:pointer;color:{{ navc.blog }}">{{ t.nav.blog }}</span>
+            <span onClick="{{ goContact }}" style="cursor:pointer;color:{{ navc.contact }}">{{ t.nav.contact }}</span>
+          </nav>
+          <div style="display:flex;align-items:center;gap:18px">
+            <div style="font-size:12px;font-weight:600;letter-spacing:.05em">
+              <span onClick="{{ setEN }}" style="cursor:pointer;color:{{ navc.en }}">EN</span><span style="color:#c1c8d5"> / </span><span onClick="{{ setTH }}" style="cursor:pointer;color:{{ navc.th }}">TH</span>
+            </div>
+            <div onClick="{{ goContact }}" style="cursor:pointer;padding:10px 18px;background:#17366b;color:#fff;font-size:13px;font-weight:600;border-radius:3px" style-hover="background:#0d2a54">{{ t.nav.partner }}</div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ toggleMenu }}" style="display:flex;flex-direction:column;gap:5px;padding:8px;cursor:pointer" aria-label="Menu">
+          <span style="display:block;width:24px;height:2px;background:#17366b"></span>
+          <span style="display:block;width:24px;height:2px;background:#17366b"></span>
+          <span style="display:block;width:24px;height:2px;background:#17366b"></span>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid rgba(17,26,48,.1);background:rgba(242,246,251,.98);padding:8px clamp(18px,5vw,32px) 22px;display:flex;flex-direction:column">
+        <span onClick="{{ goHome }}" style="cursor:pointer;padding:13px 0;font-size:16px;font-weight:600;border-bottom:1px solid rgba(17,26,48,.07);color:{{ navc.home }}">{{ t.nav.home }}</span>
+        <span onClick="{{ goMedical }}" style="cursor:pointer;padding:13px 0;font-size:16px;font-weight:600;border-bottom:1px solid rgba(17,26,48,.07);color:{{ navc.medical }}">{{ t.nav.medical }}</span>
+        <span onClick="{{ goEnergy }}" style="cursor:pointer;padding:13px 0;font-size:16px;font-weight:600;border-bottom:1px solid rgba(17,26,48,.07);color:{{ navc.energy }}">{{ t.nav.energy }}</span>
+        <span onClick="{{ goBlog }}" style="cursor:pointer;padding:13px 0;font-size:16px;font-weight:600;border-bottom:1px solid rgba(17,26,48,.07);color:{{ navc.blog }}">{{ t.nav.blog }}</span>
+        <span onClick="{{ goContact }}" style="cursor:pointer;padding:13px 0;font-size:16px;font-weight:600;border-bottom:1px solid rgba(17,26,48,.07);color:{{ navc.contact }}">{{ t.nav.contact }}</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:14px">
+          <div style="font-size:13px;font-weight:600;letter-spacing:.05em">
+            <span onClick="{{ setEN }}" style="cursor:pointer;color:{{ navc.en }}">EN</span><span style="color:#c1c8d5"> / </span><span onClick="{{ setTH }}" style="cursor:pointer;color:{{ navc.th }}">TH</span>
+          </div>
+          <div onClick="{{ goContact }}" style="cursor:pointer;flex:1;text-align:center;padding:13px 18px;background:#17366b;color:#fff;font-size:14px;font-weight:600;border-radius:3px">{{ t.nav.partner }}</div>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <main style="flex:1">
+
+  <!-- ===================== HOME ===================== -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <!-- hero -->
+    <section style="position:relative;background:#17366b;color:#fff;overflow:hidden">
+      <div style="position:absolute;inset:0"><image-slot id="home-hero" shape="rect" fit="cover" placeholder="ลาก/วางรูป hero (engineer · lab)"></image-slot></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(15,26,54,.96) 0%,rgba(15,26,54,.78) 48%,rgba(15,26,54,.3) 100%)"></div>
+      <div style="position:relative;pointer-events:none;max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,104px) clamp(20px,5vw,32px) clamp(68px,9vw,116px)">
+        <div style="max-width:720px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px"><div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #2f6cb5"></div><span style="font-size:11px;font-weight:600;letter-spacing:.26em;color:#8fb8e6">{{ t.home.eyebrow }}</span></div>
+          <h1 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(36px,7vw,64px);line-height:1.05;letter-spacing:-.015em;margin:0 0 24px">{{ t.home.h1 }}</h1>
+          <p style="font-size:17px;line-height:1.75;color:rgba(255,255,255,.82);margin:0 0 38px;max-width:540px">{{ t.home.sub }}</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <div onClick="{{ goContact }}" style="cursor:pointer;pointer-events:auto;padding:15px 30px;background:#2f6cb5;color:#fff;font-size:14px;font-weight:700;border-radius:3px" style-hover="background:#3f7ec7">{{ t.home.cta1 }}</div>
+            <div onClick="{{ goMedical }}" style="cursor:pointer;pointer-events:auto;padding:15px 30px;border:1px solid rgba(255,255,255,.45);color:#fff;font-size:14px;font-weight:600;border-radius:3px" style-hover="background:rgba(255,255,255,.08)">{{ t.home.cta2 }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- divisions -->
+    <section style="max-width:1200px;margin:0 auto;padding:86px 32px 20px">
+      <div style="text-align:center;margin-bottom:44px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#14839c;margin-bottom:14px">{{ t.home.divEyebrow }}</div>
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin:0">{{ t.home.divTitle }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
+        <div onClick="{{ goMedical }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(20,30,60,.06)" style-hover="box-shadow:0 14px 40px rgba(20,30,60,.14)">
+          <div style="height:230px"><image-slot id="home-div-med" shape="rect" placeholder="รูป CGM บนแขน"></image-slot></div>
+          <div style="padding:32px 34px 36px;border-top:3px solid #14839c">
+            <div style="font-size:11px;font-weight:600;letter-spacing:.2em;color:#14839c;margin-bottom:12px">{{ t.home.medTag }}</div>
+            <h3 style="font-family:Spectral,serif;font-weight:500;font-size:27px;margin:0 0 12px;color:#17366b">{{ t.home.medTitle }}</h3>
+            <p style="font-size:15px;line-height:1.65;color:#58627a;margin:0 0 18px">{{ t.home.medDesc }}</p>
+            <span style="font-size:14px;font-weight:600;color:#17366b">{{ t.home.medLink }} →</span>
+          </div>
+        </div>
+        <div onClick="{{ goEnergy }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(20,30,60,.06)" style-hover="box-shadow:0 14px 40px rgba(20,30,60,.14)">
+          <div style="height:230px"><image-slot id="home-div-energy" shape="rect" placeholder="รูปกังหันลม"></image-slot></div>
+          <div style="padding:32px 34px 36px;border-top:3px solid #2f6cb5">
+            <div style="font-size:11px;font-weight:600;letter-spacing:.2em;color:#285a97;margin-bottom:12px">{{ t.home.enTag }}</div>
+            <h3 style="font-family:Spectral,serif;font-weight:500;font-size:27px;margin:0 0 12px;color:#17366b">{{ t.home.enTitle }}</h3>
+            <p style="font-size:15px;line-height:1.65;color:#58627a;margin:0 0 18px">{{ t.home.enDesc }}</p>
+            <span style="font-size:14px;font-weight:600;color:#17366b">{{ t.home.enLink }} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- why partner -->
+    <section style="max-width:1200px;margin:0 auto;padding:76px 32px 20px">
+      <div style="margin-bottom:40px;max-width:560px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#14839c;margin-bottom:14px">{{ t.home.whyEyebrow }}</div>
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(26px,3.6vw,36px);line-height:1.18;margin:0">{{ t.home.whyTitle }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px">
+        <sc-for list="{{ t.home.why }}" as="w" hint-placeholder-count="4">
+          <div style="padding-top:22px;border-top:2px solid #2f6cb5">
+            <h4 style="font-size:16px;font-weight:600;color:#17366b;margin:0 0 10px">{{ w.t }}</h4>
+            <p style="font-size:14px;line-height:1.65;color:#58627a;margin:0">{{ w.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- stats -->
+    <section style="background:#0d2a54;color:#fff;margin-top:76px">
+      <div style="max-width:1200px;margin:0 auto;padding:56px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px">
+        <sc-for list="{{ t.home.stats }}" as="s" hint-placeholder-count="4">
+          <div style="text-align:center">
+            <div style="font-family:Spectral,serif;font-size:clamp(32px,4vw,44px);font-weight:400;color:#8fb8e6;line-height:1">{{ s.v }}</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:8px;letter-spacing:.02em">{{ s.k }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- featured knowledge -->
+    <section style="max-width:1200px;margin:0 auto;padding:80px 32px 20px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#14839c;margin-bottom:14px">{{ t.home.kbEyebrow }}</div>
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(26px,3.6vw,36px);margin:0">{{ t.home.kbTitle }}</h2>
+        </div>
+        <span onClick="{{ goBlog }}" style="cursor:pointer;font-size:14px;font-weight:600;color:#17366b">{{ t.home.kbLink }} →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px">
+        <sc-for list="{{ t.home.posts }}" as="p" hint-placeholder-count="3">
+          <div onClick="{{ goBlog }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden" style-hover="box-shadow:0 12px 32px rgba(20,30,60,.12)">
+            <div style="height:170px"><image-slot id="home-post-{{ $index }}" shape="rect" placeholder="รูปบทความ"></image-slot></div>
+            <div style="padding:22px 24px 26px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.16em;color:#285a97;margin-bottom:10px">{{ p.cat }}</div>
+              <h4 style="font-size:17px;font-weight:600;line-height:1.35;color:#17366b;margin:0 0 12px">{{ p.title }}</h4>
+              <div style="font-size:12px;color:#838da3">{{ p.date }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section style="max-width:1200px;margin:80px auto 96px;padding:0 32px">
+      <div style="background:#17366b;border-radius:10px;padding:clamp(36px,5vw,60px) clamp(24px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+        <div style="max-width:560px">
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(24px,3.2vw,34px);color:#fff;margin:0 0 12px">{{ t.home.ctaTitle }}</h2>
+          <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,.75);margin:0">{{ t.home.ctaDesc }}</p>
+        </div>
+        <div onClick="{{ goContact }}" style="cursor:pointer;padding:16px 34px;background:#2f6cb5;color:#fff;font-size:15px;font-weight:700;border-radius:3px;white-space:nowrap" style-hover="background:#3f7ec7">{{ t.home.ctaBtn }}</div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ===================== MEDICAL ===================== -->
+  <sc-if value="{{ isMedical }}" hint-placeholder-val="{{ true }}">
+    <section style="background:#17366b;color:#fff">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(52px,8vw,76px) clamp(20px,5vw,32px) clamp(56px,8vw,84px)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px"><span style="width:26px;height:1px;background:#2f6cb5"></span><span style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#8fb8e6">{{ t.med.eyebrow }}</span></div>
+        <h1 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(32px,5.6vw,52px);line-height:1.08;margin:0 0 20px;max-width:760px">{{ t.med.h1 }}</h1>
+        <p style="font-size:17px;line-height:1.75;color:rgba(255,255,255,.8);margin:0;max-width:600px">{{ t.med.sub }}</p>
+      </div>
+    </section>
+
+    <!-- intro -->
+    <section style="max-width:1200px;margin:0 auto;padding:72px 32px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#14839c;margin-bottom:14px">{{ t.med.flagTag }}</div>
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(24px,3.2vw,34px);line-height:1.2;margin:0 0 18px;color:#17366b">{{ t.med.flagTitle }}</h2>
+          <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0 0 14px">{{ t.med.flagP1 }}</p>
+          <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0">{{ t.med.flagP2 }}</p>
+        </div>
+        <div style="height:400px"><image-slot id="med-flag" shape="rounded" radius="8" placeholder="รูปเครื่อง CGM + แอป"></image-slot></div>
+      </div>
+    </section>
+
+    <!-- how it works -->
+    <section style="max-width:1200px;margin:0 auto;padding:80px 32px 0">
+      <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(23px,3vw,32px);margin:0 0 40px;color:#17366b">{{ t.med.howTitle }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px">
+        <sc-for list="{{ t.med.steps }}" as="st" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;padding:32px 30px">
+            <div style="font-family:Spectral,serif;font-size:clamp(24px,3.2vw,34px);color:#2f6cb5;margin-bottom:14px">{{ st.n }}</div>
+            <h4 style="font-size:18px;font-weight:600;color:#17366b;margin:0 0 10px">{{ st.t }}</h4>
+            <p style="font-size:14px;line-height:1.65;color:#58627a;margin:0">{{ st.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- highlights -->
+    <section style="background:#e9eff7;margin-top:80px">
+      <div style="max-width:1200px;margin:0 auto;padding:64px 32px">
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(23px,3vw,32px);margin:0 0 36px;color:#17366b">{{ t.med.hlTitle }}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px">
+          <sc-for list="{{ t.med.highlights }}" as="h" hint-placeholder-count="4">
+            <div style="padding-top:20px;border-top:2px solid #14839c">
+              <h4 style="font-size:15px;font-weight:600;color:#17366b;margin:0 0 8px">{{ h.t }}</h4>
+              <p style="font-size:13.5px;line-height:1.6;color:#58627a;margin:0">{{ h.d }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- who for -->
+    <section style="max-width:1200px;margin:0 auto;padding:80px 32px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
+        <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;padding:36px 38px;border-top:3px solid #14839c">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.18em;color:#14839c;margin-bottom:12px">{{ t.med.who1Tag }}</div>
+          <h3 style="font-family:Spectral,serif;font-size:24px;color:#17366b;margin:0 0 12px">{{ t.med.who1Title }}</h3>
+          <p style="font-size:14.5px;line-height:1.7;color:#58627a;margin:0">{{ t.med.who1Desc }}</p>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;padding:36px 38px;border-top:3px solid #14839c">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.18em;color:#14839c;margin-bottom:12px">{{ t.med.who2Tag }}</div>
+          <h3 style="font-family:Spectral,serif;font-size:24px;color:#17366b;margin:0 0 12px">{{ t.med.who2Title }}</h3>
+          <p style="font-size:14.5px;line-height:1.7;color:#58627a;margin:0">{{ t.med.who2Desc }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- certifications -->
+    <section style="max-width:1200px;margin:0 auto;padding:64px 32px 0">
+      <div style="border:1px solid rgba(17,26,48,.14);border-radius:8px;padding:32px 40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.16em;color:#838da3">{{ t.med.certLabel }}</span>
+        <sc-for list="{{ t.med.certs }}" as="c" hint-placeholder-count="4"><span style="font-size:15px;font-weight:600;color:#17366b">{{ c }}</span></sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:72px auto 96px;padding:0 32px">
+      <div style="background:#17366b;border-radius:10px;padding:clamp(32px,5vw,52px) clamp(24px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(22px,2.8vw,30px);color:#fff;margin:0;max-width:600px">{{ t.med.ctaTitle }}</h2>
+        <div onClick="{{ goContact }}" style="cursor:pointer;padding:15px 32px;background:#2f6cb5;color:#fff;font-size:14px;font-weight:700;border-radius:3px;white-space:nowrap" style-hover="background:#3f7ec7">{{ t.med.ctaBtn }}</div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ===================== ENERGY ===================== -->
+  <sc-if value="{{ isEnergy }}" hint-placeholder-val="{{ true }}">
+    <section style="position:relative;background:#0d2a54;color:#fff;overflow:hidden">
+      <div style="position:absolute;inset:0"><image-slot id="en-hero" shape="rect" fit="cover" placeholder="ลาก/วางรูปกังหันลม"></image-slot></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(15,26,54,.95),rgba(15,26,54,.55))"></div>
+      <div style="position:relative;pointer-events:none;max-width:1200px;margin:0 auto;padding:clamp(52px,8vw,80px) clamp(20px,5vw,32px) clamp(56px,8vw,88px)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px"><span style="width:26px;height:1px;background:#2f6cb5"></span><span style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#8fb8e6">{{ t.en.eyebrow }}</span></div>
+        <h1 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(32px,5.6vw,52px);line-height:1.08;margin:0 0 20px;max-width:760px">{{ t.en.h1 }}</h1>
+        <p style="font-size:17px;line-height:1.75;color:rgba(255,255,255,.82);margin:0;max-width:600px">{{ t.en.sub }}</p>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:72px 32px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+        <div style="height:400px"><image-slot id="en-offer" shape="rounded" radius="8" placeholder="รูปฟาร์มกังหันลม"></image-slot></div>
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#285a97;margin-bottom:14px">{{ t.en.offerTag }}</div>
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(24px,3.2vw,34px);line-height:1.2;margin:0 0 18px;color:#17366b">{{ t.en.offerTitle }}</h2>
+          <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0 0 14px">{{ t.en.offerP1 }}</p>
+          <p style="font-size:15.5px;line-height:1.75;color:#47526b;margin:0">{{ t.en.offerP2 }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- benefits -->
+    <section style="max-width:1200px;margin:0 auto;padding:80px 32px 0">
+      <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(23px,3vw,32px);margin:0 0 40px;color:#17366b">{{ t.en.benTitle }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px">
+        <sc-for list="{{ t.en.benefits }}" as="b" hint-placeholder-count="4">
+          <div style="padding-top:20px;border-top:2px solid #2f6cb5">
+            <h4 style="font-size:15px;font-weight:600;color:#17366b;margin:0 0 8px">{{ b.t }}</h4>
+            <p style="font-size:13.5px;line-height:1.6;color:#58627a;margin:0">{{ b.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- applications -->
+    <section style="background:#e9eff7;margin-top:80px">
+      <div style="max-width:1200px;margin:0 auto;padding:64px 32px">
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(23px,3vw,32px);margin:0 0 36px;color:#17366b">{{ t.en.appTitle }}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px">
+          <sc-for list="{{ t.en.apps }}" as="a" hint-placeholder-count="3">
+            <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden">
+              <div style="height:150px"><image-slot id="en-app-{{ $index }}" shape="rect" placeholder="รูป"></image-slot></div>
+              <div style="padding:24px 26px 28px">
+                <h4 style="font-size:17px;font-weight:600;color:#17366b;margin:0 0 10px">{{ a.t }}</h4>
+                <p style="font-size:14px;line-height:1.6;color:#58627a;margin:0">{{ a.d }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- sustainability -->
+    <section style="max-width:1200px;margin:0 auto;padding:80px 32px 0">
+      <div style="background:#14839c;border-radius:10px;padding:clamp(34px,5vw,56px) clamp(24px,5vw,56px);color:#fff">
+        <div style="max-width:640px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.22em;color:rgba(255,255,255,.7);margin-bottom:14px">{{ t.en.susTag }}</div>
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(23px,3vw,32px);line-height:1.2;margin:0 0 16px">{{ t.en.susTitle }}</h2>
+          <p style="font-size:15.5px;line-height:1.75;color:rgba(255,255,255,.85);margin:0">{{ t.en.susDesc }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:72px auto 96px;padding:0 32px">
+      <div style="background:#17366b;border-radius:10px;padding:clamp(32px,5vw,52px) clamp(24px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(22px,2.8vw,30px);color:#fff;margin:0;max-width:600px">{{ t.en.ctaTitle }}</h2>
+        <div onClick="{{ goContact }}" style="cursor:pointer;padding:15px 32px;background:#2f6cb5;color:#fff;font-size:14px;font-weight:700;border-radius:3px;white-space:nowrap" style-hover="background:#3f7ec7">{{ t.en.ctaBtn }}</div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ===================== BLOG ===================== -->
+  <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1200px;margin:0 auto;padding:72px 32px 0">
+      <div style="max-width:640px;margin-bottom:48px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#14839c;margin-bottom:14px">{{ t.blog.eyebrow }}</div>
+        <h1 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0 0 16px;color:#17366b">{{ t.blog.h1 }}</h1>
+        <p style="font-size:16px;line-height:1.7;color:#47526b;margin:0">{{ t.blog.sub }}</p>
+      </div>
+      <!-- featured -->
+      <div onClick="{{ goBlog }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden;margin-bottom:56px">
+        <div style="min-height:320px"><image-slot id="blog-feat" shape="rect" placeholder="รูปบทความเด่น"></image-slot></div>
+        <div style="padding:clamp(28px,4vw,44px) clamp(24px,4vw,44px);display:flex;flex-direction:column;justify-content:center">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;color:#285a97;margin-bottom:14px">{{ t.blog.featCat }}</div>
+          <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(22px,2.8vw,30px);line-height:1.22;color:#17366b;margin:0 0 14px">{{ t.blog.featTitle }}</h2>
+          <p style="font-size:15px;line-height:1.7;color:#58627a;margin:0 0 18px">{{ t.blog.featDesc }}</p>
+          <div style="font-size:12px;color:#838da3">{{ t.blog.featMeta }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- filter + grid -->
+    <section style="max-width:1200px;margin:0 auto;padding:0 32px 0">
+      <div style="display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap">
+        <sc-for list="{{ t.blog.cats }}" as="c" hint-placeholder-count="4"><span style="padding:8px 18px;border:1px solid rgba(17,26,48,.16);border-radius:20px;font-size:13px;font-weight:500;color:#58627a;cursor:pointer" style-hover="border-color:#17366b;color:#17366b">{{ c }}</span></sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px">
+        <sc-for list="{{ t.blog.posts }}" as="p" hint-placeholder-count="6">
+          <div onClick="{{ goBlog }}" style="cursor:pointer;background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:8px;overflow:hidden" style-hover="box-shadow:0 12px 32px rgba(20,30,60,.12)">
+            <div style="height:170px"><image-slot id="blog-post-{{ $index }}" shape="rect" placeholder="รูป"></image-slot></div>
+            <div style="padding:22px 24px 26px">
+              <div style="font-size:10px;font-weight:600;letter-spacing:.16em;color:#285a97;margin-bottom:10px">{{ p.cat }}</div>
+              <h4 style="font-size:17px;font-weight:600;line-height:1.35;color:#17366b;margin:0 0 12px">{{ p.title }}</h4>
+              <div style="font-size:12px;color:#838da3">{{ p.date }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- newsletter -->
+    <section style="max-width:1200px;margin:76px auto 96px;padding:0 32px">
+      <div style="background:#0d2a54;border-radius:10px;padding:clamp(34px,5vw,56px) clamp(24px,5vw,56px);text-align:center">
+        <h2 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(22px,2.8vw,30px);color:#fff;margin:0 0 12px">{{ t.blog.nlTitle }}</h2>
+        <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,.72);margin:0 auto 26px;max-width:480px">{{ t.blog.nlDesc }}</p>
+        <div style="display:flex;gap:12px;justify-content:center;max-width:480px;margin:0 auto">
+          <input placeholder="{{ t.blog.nlPlaceholder }}" style="flex:1;padding:14px 18px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);border-radius:4px;color:#fff;font-size:14px;font-family:inherit;outline:none">
+          <div style="padding:14px 26px;background:#2f6cb5;color:#fff;font-size:14px;font-weight:700;border-radius:4px;cursor:pointer;white-space:nowrap" style-hover="background:#3f7ec7">{{ t.blog.nlBtn }}</div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ===================== CONTACT ===================== -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1200px;margin:0 auto;padding:72px 32px 0">
+      <div style="max-width:640px;margin-bottom:52px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.24em;color:#14839c;margin-bottom:14px">{{ t.contact.eyebrow }}</div>
+        <h1 style="font-family:Spectral,serif;font-weight:400;font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0 0 16px;color:#17366b">{{ t.contact.h1 }}</h1>
+        <p style="font-size:16px;line-height:1.7;color:#47526b;margin:0">{{ t.contact.sub }}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start">
+        <!-- form -->
+        <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:10px;padding:clamp(24px,4vw,40px) clamp(22px,4vw,40px)">
+          <h3 style="font-family:Spectral,serif;font-weight:500;font-size:23px;color:#17366b;margin:0 0 26px">{{ t.contact.formTitle }}</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-bottom:18px">
+            <div><label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:7px">{{ t.contact.fName }}</label><input style="width:100%;padding:12px 14px;border:1px solid rgba(17,26,48,.18);border-radius:4px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#14839c"></div>
+            <div><label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:7px">{{ t.contact.fCompany }}</label><input style="width:100%;padding:12px 14px;border:1px solid rgba(17,26,48,.18);border-radius:4px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#14839c"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-bottom:18px">
+            <div><label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:7px">{{ t.contact.fEmail }}</label><input style="width:100%;padding:12px 14px;border:1px solid rgba(17,26,48,.18);border-radius:4px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#14839c"></div>
+            <div><label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:7px">{{ t.contact.fCountry }}</label><input style="width:100%;padding:12px 14px;border:1px solid rgba(17,26,48,.18);border-radius:4px;font-size:14px;font-family:inherit;outline:none" style-focus="border-color:#14839c"></div>
+          </div>
+          <div style="margin-bottom:18px">
+            <label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:9px">{{ t.contact.fInterest }}</label>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <sc-for list="{{ t.contact.interests }}" as="i" hint-placeholder-count="3"><span style="padding:9px 16px;border:1px solid rgba(17,26,48,.18);border-radius:20px;font-size:13px;font-weight:500;color:#58627a;cursor:pointer" style-hover="border-color:#14839c;color:#14839c">{{ i }}</span></sc-for>
+            </div>
+          </div>
+          <div style="margin-bottom:24px"><label style="display:block;font-size:12px;font-weight:600;color:#58627a;margin-bottom:7px">{{ t.contact.fMessage }}</label><textarea rows="4" style="width:100%;padding:12px 14px;border:1px solid rgba(17,26,48,.18);border-radius:4px;font-size:14px;font-family:inherit;outline:none;resize:vertical" style-focus="border-color:#14839c"></textarea></div>
+          <div style="padding:15px 32px;background:#17366b;color:#fff;font-size:14px;font-weight:600;border-radius:4px;text-align:center;cursor:pointer" style-hover="background:#0d2a54">{{ t.contact.fSubmit }}</div>
+        </div>
+        <!-- side info -->
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="background:#17366b;color:#fff;border-radius:10px;padding:32px 32px;border-top:3px solid #2f6cb5">
+            <div style="font-size:11px;font-weight:600;letter-spacing:.18em;color:#8fb8e6;margin-bottom:12px">{{ t.contact.partnerTag }}</div>
+            <h4 style="font-family:Spectral,serif;font-size:21px;margin:0 0 10px">{{ t.contact.partnerTitle }}</h4>
+            <p style="font-size:14px;line-height:1.65;color:rgba(255,255,255,.78);margin:0">{{ t.contact.partnerDesc }}</p>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(17,26,48,.1);border-radius:10px;padding:32px 32px">
+            <sc-for list="{{ t.contact.details }}" as="d" hint-placeholder-count="4">
+              <div style="margin-bottom:18px">
+                <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:#838da3;margin-bottom:5px">{{ d.k }}</div>
+                <div style="font-size:15px;color:#17366b;font-weight:500">{{ d.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="height:180px"><image-slot id="contact-map" shape="rounded" radius="10" placeholder="แผนที่ / ภาพสำนักงาน"></image-slot></div>
+        </div>
+      </div>
+      <div style="height:96px"></div>
+    </section>
+  </sc-if>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:#0d2a54;color:rgba(255,255,255,.7)">
+    <div style="max-width:1200px;margin:0 auto;padding:56px 32px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:15px solid #2f6cb5"></div>
+          <div style="font-weight:700;letter-spacing:.13em;font-size:14px;color:#fff">PRIME LIFE APEX</div>
+        </div>
+        <p style="font-size:13.5px;line-height:1.7;margin:0 0 16px;max-width:280px">{{ t.footer.blurb }}</p>
+        <div style="font-size:10px;letter-spacing:.22em;color:#2f6cb5;font-weight:600">SUSTAINABILITY · LONGEVITY · PEAK PERFORMANCE</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;color:#fff;margin-bottom:16px">{{ t.footer.col1 }}</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+          <span onClick="{{ goMedical }}" style="cursor:pointer;color:rgba(255,255,255,.7)">{{ t.nav.medical }}</span>
+          <span onClick="{{ goEnergy }}" style="cursor:pointer;color:rgba(255,255,255,.7)">{{ t.nav.energy }}</span>
+          <span onClick="{{ goBlog }}" style="cursor:pointer;color:rgba(255,255,255,.7)">{{ t.nav.blog }}</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;color:#fff;margin-bottom:16px">{{ t.footer.col2 }}</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+          <span onClick="{{ goContact }}" style="cursor:pointer;color:rgba(255,255,255,.7)">{{ t.footer.partner }}</span>
+          <span onClick="{{ goContact }}" style="cursor:pointer;color:rgba(255,255,255,.7)">{{ t.nav.contact }}</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;color:#fff;margin-bottom:16px">{{ t.footer.col3 }}</div>
+        <div style="font-size:13.5px;line-height:1.9">contact@primelifeapex.com<br>+66 2 000 0000<br>Bangkok, Thailand</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1)"><div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.5);flex-wrap:wrap;gap:10px"><span>© 2026 Prime Life Apex Co., Ltd.</span><span>{{ t.footer.rights }}</span></div></div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const C = {
+  en: {
+    nav:{home:"Home",medical:"Medical",energy:"Energy",blog:"Blog",contact:"Contact",partner:"Partner with us"},
+    home:{
+      eyebrow:"MEDICAL & ENERGY · GLOBAL PARTNERSHIPS",
+      h1:"Reaching the apex of health & clean energy.",
+      sub:"We bring world-class medical and clean-energy technology to Thailand — and open the door to partnerships with businesses worldwide.",
+      cta1:"Become a partner", cta2:"Explore our divisions",
+      divEyebrow:"OUR DIVISIONS", divTitle:"Two frontiers. One standard of excellence.",
+      medTag:"MEDICAL DEVICE", medTitle:"Continuous Glucose Monitoring", medDesc:"Our flagship imported product — continuous glucose monitoring for hospitals, clinics and everyday users.", medLink:"Explore Medical",
+      enTag:"ENERGY", enTitle:"Wind Turbine Solutions", enDesc:"Wind-power generation systems delivering clean, sustainable energy for a low-carbon future.", enLink:"Explore Energy",
+      whyEyebrow:"WHY PARTNER WITH US", whyTitle:"A dependable bridge between global innovation and the Thai market.",
+      why:[
+        {t:"Global sourcing",d:"Direct relationships with world-class manufacturers across health and energy."},
+        {t:"Regulatory expertise",d:"We navigate FDA, ISO and Thai FDA requirements so your product reaches market faster."},
+        {t:"Trusted distribution",d:"An established network across hospitals, enterprises and provincial partners."},
+        {t:"Knowledge-driven",d:"We educate the market — building demand through content, not just sales."}
+      ],
+      stats:[{v:"2",k:"Core industries"},{v:"10+",k:"Provinces reached"},{v:"FDA·ISO",k:"Certified standards"},{v:"2025",k:"Founded"}],
+      kbEyebrow:"KNOWLEDGE HUB", kbTitle:"Latest insights", kbLink:"View all articles",
+      posts:[
+        {cat:"HEALTH",title:"What is Continuous Glucose Monitoring, and who is it for?",date:"Jul 2026"},
+        {cat:"ENERGY",title:"Why small-scale wind is gaining ground in Southeast Asia",date:"Jun 2026"},
+        {cat:"COMPANY",title:"How we vet and import medical devices for Thailand",date:"Jun 2026"}
+      ],
+      ctaTitle:"Let us build something together.", ctaDesc:"Whether you are a manufacturer seeking a Thai distributor, or a partner exploring clean energy — we would love to talk.", ctaBtn:"Start a conversation"
+    },
+    med:{
+      eyebrow:"MEDICAL DEVICE DIVISION", h1:"Continuous Glucose Monitoring, made accessible.", sub:"Our first flagship import — bringing proven CGM technology to Thai hospitals, clinics and consumers.",
+      flagTag:"FLAGSHIP PRODUCT", flagTitle:"A smarter way to understand glucose.",
+      flagP1:"Continuous Glucose Monitoring (CGM) tracks glucose levels around the clock through a small wearable sensor — no routine fingersticks required.",
+      flagP2:"As our first imported product line, we handle sourcing, regulatory clearance and distribution end to end, so partners and clinicians can rely on a single trusted channel.",
+      howTitle:"How CGM works",
+      steps:[
+        {n:"01",t:"Apply the sensor",d:"A discreet sensor is applied to the upper arm and worn comfortably for up to 14 days."},
+        {n:"02",t:"Read continuously",d:"Glucose data streams in real time to a reader or smartphone, day and night."},
+        {n:"03",t:"Act on insights",d:"Trends and alerts help patients and clinicians make timely, informed decisions."}
+      ],
+      hlTitle:"Product highlights",
+      highlights:[
+        {t:"Up to 14-day wear",d:"Long sensor life reduces replacements and cost."},
+        {t:"Real-time readings",d:"Continuous data instead of single-point measurements."},
+        {t:"No fingersticks",d:"Painless monitoring improves daily adherence."},
+        {t:"App connectivity",d:"Data syncs to mobile apps for sharing with care teams."}
+      ],
+      who1Tag:"FOR HOSPITALS & CLINICS", who1Title:"Clinical-grade monitoring", who1Desc:"Support diabetes care programs with reliable, continuous data and streamlined procurement through a single importer.",
+      who2Tag:"FOR INDIVIDUALS", who2Title:"Everyday confidence", who2Desc:"Empower people managing diabetes with easy, painless monitoring and clear insights they can act on.",
+      certLabel:"CERTIFIED & COMPLIANT", certs:["FDA","ISO 13485","CE","Thai FDA"],
+      ctaTitle:"Distribute, prescribe, or partner on CGM.", ctaBtn:"Enquire now"
+    },
+    en:{
+      eyebrow:"ENERGY DIVISION", h1:"Clean power, engineered for the long term.", sub:"Wind turbine solutions that turn Thailand and the region toward a sustainable, low-carbon future.",
+      offerTag:"OUR OFFERING", offerTitle:"Wind turbine systems, sourced and supported.",
+      offerP1:"We import and support wind turbine systems — from compact community-scale units to commercial installations — built for reliable clean-energy generation.",
+      offerP2:"Beyond hardware, we connect international manufacturers with local developers, investors and communities to bring projects to life.",
+      benTitle:"Why wind",
+      benefits:[
+        {t:"Clean generation",d:"Zero-emission electricity that cuts carbon and fuel dependence."},
+        {t:"Long asset life",d:"Durable turbines engineered for decades of service."},
+        {t:"Lower running cost",d:"Free fuel source means predictable long-term economics."},
+        {t:"Scalable",d:"From single units to full farms, sized to the site and demand."}
+      ],
+      appTitle:"Applications",
+      apps:[
+        {t:"Community & rural",d:"Reliable power for off-grid and underserved communities."},
+        {t:"Commercial & industrial",d:"On-site generation to offset energy costs and emissions."},
+        {t:"Utility-scale",d:"Larger developments feeding clean power to the grid."}
+      ],
+      susTag:"SUSTAINABILITY", susTitle:"Energy that respects the future.", susDesc:"Every project advances our promise — sustainability, longevity and peak performance — helping partners meet clean-energy and ESG goals with confidence.",
+      ctaTitle:"Explore a wind energy partnership.", ctaBtn:"Enquire now"
+    },
+    blog:{
+      eyebrow:"KNOWLEDGE HUB", h1:"Insights on health tech & clean energy.", sub:"We believe an informed market is a stronger market. Explore our latest thinking across both divisions.",
+      featCat:"FEATURED · HEALTH", featTitle:"The complete guide to Continuous Glucose Monitoring", featDesc:"What CGM is, how it compares to traditional monitoring, and why it matters for diabetes care in Thailand.", featMeta:"12 min read · July 2026",
+      cats:["All","Health","Energy","Company"],
+      posts:[
+        {cat:"HEALTH",title:"CGM vs. fingerstick testing: what the data shows",date:"Jul 2026"},
+        {cat:"ENERGY",title:"Small wind turbines explained for property owners",date:"Jul 2026"},
+        {cat:"COMPANY",title:"Our approach to importing certified medical devices",date:"Jun 2026"},
+        {cat:"ENERGY",title:"Wind and solar: which fits your site?",date:"Jun 2026"},
+        {cat:"HEALTH",title:"Reading your glucose trends: a beginner primer",date:"May 2026"},
+        {cat:"COMPANY",title:"Building partnerships across borders",date:"May 2026"}
+      ],
+      nlTitle:"Stay informed.", nlDesc:"Get new articles on medical technology and clean energy, straight to your inbox.", nlPlaceholder:"Your email address", nlBtn:"Subscribe"
+    },
+    contact:{
+      eyebrow:"GET IN TOUCH", h1:"Let us build something together.", sub:"Partners, distributors, clinicians and investors — reach out and our team will respond within two business days.",
+      formTitle:"Send us a message",
+      fName:"Full name", fCompany:"Company", fEmail:"Email", fCountry:"Country",
+      fInterest:"I am interested in", interests:["Medical / CGM","Energy / Wind","Partnership","Investment"],
+      fMessage:"Message", fSubmit:"Submit enquiry",
+      partnerTag:"FOR INTERNATIONAL PARTNERS", partnerTitle:"Partner & distribution inquiries", partnerDesc:"Manufacturers seeking a Thai market entry — we offer sourcing, regulatory and distribution support end to end.",
+      details:[{k:"EMAIL",v:"contact@primelifeapex.com"},{k:"PHONE",v:"+66 2 000 0000"},{k:"OFFICE",v:"Bangkok, Thailand"},{k:"HOURS",v:"Mon–Fri · 9:00–18:00 ICT"}]
+    },
+    footer:{blurb:"An importer and distributor bridging world-class medical and clean-energy innovation with the Thai market.", col1:"Divisions", col2:"Company", col3:"Contact", partner:"Become a partner", rights:"All rights reserved."}
+  },
+  th: {
+    nav:{home:"หน้าแรก",medical:"การแพทย์",energy:"พลังงาน",blog:"บทความ",contact:"ติดต่อ",partner:"ร่วมเป็นพันธมิตร"},
+    home:{
+      eyebrow:"การแพทย์ & พลังงาน · พันธมิตรระดับสากล",
+      h1:"สู่จุดสูงสุดของสุขภาพและพลังงานสะอาด",
+      sub:"เรานำเทคโนโลยีการแพทย์และพลังงานสะอาดระดับโลกเข้าสู่ประเทศไทย พร้อมเปิดโอกาสความร่วมมือกับพันธมิตรทางธุรกิจทั่วโลก",
+      cta1:"ร่วมเป็นพันธมิตร", cta2:"ดูกลุ่มธุรกิจ",
+      divEyebrow:"กลุ่มธุรกิจของเรา", divTitle:"สองอุตสาหกรรม หนึ่งมาตรฐานความเป็นเลิศ",
+      medTag:"อุปกรณ์การแพทย์", medTitle:"เครื่องตรวจน้ำตาลต่อเนื่อง (CGM)", medDesc:"สินค้านำเข้าเรือธงของเรา — เครื่องตรวจวัดระดับน้ำตาลต่อเนื่อง สำหรับโรงพยาบาล คลินิก และผู้ใช้ทั่วไป", medLink:"ดูรายละเอียดการแพทย์",
+      enTag:"พลังงาน", enTitle:"โซลูชันกังหันลมผลิตไฟฟ้า", enDesc:"ระบบผลิตไฟฟ้าจากกังหันลม พลังงานสะอาดที่ยั่งยืนเพื่ออนาคตคาร์บอนต่ำ", enLink:"ดูรายละเอียดพลังงาน",
+      whyEyebrow:"ทำไมต้องร่วมงานกับเรา", whyTitle:"สะพานที่เชื่อถือได้ระหว่างนวัตกรรมโลกกับตลาดไทย",
+      why:[
+        {t:"จัดหาระดับโลก",d:"เชื่อมตรงกับผู้ผลิตชั้นนำทั้งด้านสุขภาพและพลังงาน"},
+        {t:"เชี่ยวชาญมาตรฐาน",d:"ดูแลข้อกำหนด FDA, ISO และ อย.ไทย เพื่อให้สินค้าเข้าสู่ตลาดได้เร็วขึ้น"},
+        {t:"เครือข่ายจัดจำหน่าย",d:"เครือข่ายพร้อมทั้งโรงพยาบาล องค์กร และพันธมิตรทั่วประเทศ"},
+        {t:"ขับเคลื่อนด้วยความรู้",d:"เราให้ความรู้แก่ตลาด สร้างดีมานด์ด้วยเนื้อหา ไม่ใช่แค่การขาย"}
+      ],
+      stats:[{v:"2",k:"อุตสาหกรรมหลัก"},{v:"10+",k:"จังหวัดที่เข้าถึง"},{v:"FDA·ISO",k:"มาตรฐานรับรอง"},{v:"2568",k:"ปีที่ก่อตั้ง"}],
+      kbEyebrow:"ศูนย์ความรู้", kbTitle:"บทความล่าสุด", kbLink:"ดูบทความทั้งหมด",
+      posts:[
+        {cat:"สุขภาพ",title:"CGM คืออะไร และเหมาะกับใครบ้าง?",date:"ก.ค. 2569"},
+        {cat:"พลังงาน",title:"ทำไมกังหันลมขนาดเล็กจึงเติบโตในเอเชียตะวันออกเฉียงใต้",date:"มิ.ย. 2569"},
+        {cat:"บริษัท",title:"เรามีวิธีคัดเลือกและนำเข้าอุปกรณ์การแพทย์อย่างไร",date:"มิ.ย. 2569"}
+      ],
+      ctaTitle:"มาสร้างสิ่งดีๆ ไปด้วยกัน", ctaDesc:"ไม่ว่าคุณจะเป็นผู้ผลิตที่มองหาตัวแทนจำหน่ายในไทย หรือพันธมิตรด้านพลังงานสะอาด เรายินดีพูดคุยกับคุณ", ctaBtn:"เริ่มพูดคุย"
+    },
+    med:{
+      eyebrow:"กลุ่มธุรกิจอุปกรณ์การแพทย์", h1:"เครื่องตรวจน้ำตาลต่อเนื่อง เข้าถึงได้ง่ายขึ้น", sub:"สินค้านำเข้าเรือธงชิ้นแรกของเรา นำเทคโนโลยี CGM ที่ได้รับการพิสูจน์แล้วสู่โรงพยาบาล คลินิก และผู้บริโภคชาวไทย",
+      flagTag:"สินค้าเรือธง", flagTitle:"วิธีที่ชาญฉลาดกว่าในการเข้าใจระดับน้ำตาล",
+      flagP1:"เครื่องตรวจน้ำตาลต่อเนื่อง (CGM) ติดตามระดับน้ำตาลตลอด 24 ชั่วโมงผ่านเซ็นเซอร์ขนาดเล็กที่สวมใส่ได้ โดยไม่ต้องเจาะปลายนิ้วเป็นประจำ",
+      flagP2:"ในฐานะสินค้านำเข้าชิ้นแรก เราดูแลตั้งแต่การจัดหา การขึ้นทะเบียน จนถึงการจัดจำหน่ายครบวงจร เพื่อให้พันธมิตรและบุคลากรทางการแพทย์วางใจได้ในช่องทางเดียว",
+      howTitle:"CGM ทำงานอย่างไร",
+      steps:[
+        {n:"01",t:"ติดเซ็นเซอร์",d:"เซ็นเซอร์ขนาดเล็กติดที่ต้นแขน สวมใส่สบายได้นานถึง 14 วัน"},
+        {n:"02",t:"อ่านค่าต่อเนื่อง",d:"ข้อมูลน้ำตาลส่งแบบเรียลไทม์ไปยังเครื่องอ่านหรือสมาร์ทโฟนทั้งวันทั้งคืน"},
+        {n:"03",t:"นำไปใช้ตัดสินใจ",d:"แนวโน้มและการแจ้งเตือนช่วยให้ผู้ป่วยและแพทย์ตัดสินใจได้ทันเวลา"}
+      ],
+      hlTitle:"จุดเด่นของผลิตภัณฑ์",
+      highlights:[
+        {t:"สวมใส่ได้ถึง 14 วัน",d:"อายุเซ็นเซอร์ยาวนาน ลดการเปลี่ยนและค่าใช้จ่าย"},
+        {t:"อ่านค่าเรียลไทม์",d:"ข้อมูลต่อเนื่องแทนการวัดครั้งเดียว"},
+        {t:"ไม่ต้องเจาะนิ้ว",d:"ตรวจได้แบบไม่เจ็บ เพิ่มความสม่ำเสมอในการใช้งาน"},
+        {t:"เชื่อมต่อแอป",d:"ข้อมูลซิงก์เข้าแอปมือถือ แชร์กับทีมดูแลได้"}
+      ],
+      who1Tag:"สำหรับโรงพยาบาล & คลินิก", who1Title:"การตรวจระดับคลินิก", who1Desc:"สนับสนุนโปรแกรมดูแลเบาหวานด้วยข้อมูลต่อเนื่องที่เชื่อถือได้ และการจัดซื้อที่ราบรื่นผ่านผู้นำเข้ารายเดียว",
+      who2Tag:"สำหรับผู้ใช้ทั่วไป", who2Title:"มั่นใจได้ทุกวัน", who2Desc:"ช่วยให้ผู้ดูแลเบาหวานตรวจได้ง่าย ไม่เจ็บ และเห็นข้อมูลชัดเจนที่นำไปใช้ได้จริง",
+      certLabel:"ได้รับการรับรองมาตรฐาน", certs:["FDA","ISO 13485","CE","อย.ไทย"],
+      ctaTitle:"จัดจำหน่าย สั่งจ่าย หรือร่วมเป็นพันธมิตรด้าน CGM", ctaBtn:"สอบถามเลย"
+    },
+    en:{
+      eyebrow:"กลุ่มธุรกิจพลังงาน", h1:"พลังงานสะอาด ออกแบบเพื่อระยะยาว", sub:"โซลูชันกังหันลมที่พาประเทศไทยและภูมิภาคสู่อนาคตที่ยั่งยืนและปล่อยคาร์บอนต่ำ",
+      offerTag:"สิ่งที่เรานำเสนอ", offerTitle:"ระบบกังหันลม จัดหาและดูแลครบวงจร",
+      offerP1:"เรานำเข้าและดูแลระบบกังหันลม ตั้งแต่ขนาดชุมชนขนาดกะทัดรัดไปจนถึงการติดตั้งเชิงพาณิชย์ สร้างขึ้นเพื่อผลิตพลังงานสะอาดอย่างเชื่อถือได้",
+      offerP2:"นอกจากตัวอุปกรณ์ เรายังเชื่อมผู้ผลิตต่างชาติเข้ากับผู้พัฒนาโครงการ นักลงทุน และชุมชนในไทย เพื่อผลักดันโครงการให้เกิดขึ้นจริง",
+      benTitle:"ทำไมต้องพลังงานลม",
+      benefits:[
+        {t:"ผลิตไฟสะอาด",d:"ไฟฟ้าปลอดการปล่อยมลพิษ ลดคาร์บอนและการพึ่งพาเชื้อเพลิง"},
+        {t:"อายุใช้งานยาว",d:"กังหันทนทาน ออกแบบให้ใช้งานได้หลายทศวรรษ"},
+        {t:"ต้นทุนเดินเครื่องต่ำ",d:"แหล่งพลังงานฟรี ทำให้เศรษฐศาสตร์ระยะยาวคาดการณ์ได้"},
+        {t:"ขยายได้",d:"ตั้งแต่หน่วยเดียวไปจนถึงฟาร์มเต็มรูปแบบ ปรับตามพื้นที่และความต้องการ"}
+      ],
+      appTitle:"การใช้งาน",
+      apps:[
+        {t:"ชุมชน & ชนบท",d:"ไฟฟ้าที่เชื่อถือได้สำหรับพื้นที่นอกโครงข่ายและชุมชนห่างไกล"},
+        {t:"พาณิชย์ & อุตสาหกรรม",d:"ผลิตไฟในพื้นที่เพื่อลดต้นทุนพลังงานและการปล่อยคาร์บอน"},
+        {t:"ระดับสาธารณูปโภค",d:"โครงการขนาดใหญ่ที่ป้อนไฟสะอาดเข้าสู่โครงข่าย"}
+      ],
+      susTag:"ความยั่งยืน", susTitle:"พลังงานที่เคารพอนาคต", susDesc:"ทุกโครงการสานต่อคำมั่นของเรา — ความยั่งยืน อายุยืนยาว และประสิทธิภาพสูงสุด — ช่วยให้พันธมิตรบรรลุเป้าหมายพลังงานสะอาดและ ESG ได้อย่างมั่นใจ",
+      ctaTitle:"มาร่วมเป็นพันธมิตรด้านพลังงานลม", ctaBtn:"สอบถามเลย"
+    },
+    blog:{
+      eyebrow:"ศูนย์ความรู้", h1:"ความรู้ด้านเทคโนโลยีสุขภาพ & พลังงานสะอาด", sub:"เราเชื่อว่าตลาดที่มีความรู้คือตลาดที่แข็งแกร่งกว่า สำรวจมุมมองล่าสุดจากทั้งสองกลุ่มธุรกิจ",
+      featCat:"บทความเด่น · สุขภาพ", featTitle:"คู่มือฉบับสมบูรณ์ว่าด้วยเครื่องตรวจน้ำตาลต่อเนื่อง (CGM)", featDesc:"CGM คืออะไร ต่างจากการตรวจแบบเดิมอย่างไร และทำไมจึงสำคัญต่อการดูแลเบาหวานในไทย", featMeta:"อ่าน 12 นาที · กรกฎาคม 2569",
+      cats:["ทั้งหมด","สุขภาพ","พลังงาน","บริษัท"],
+      posts:[
+        {cat:"สุขภาพ",title:"CGM กับการเจาะปลายนิ้ว: ข้อมูลบอกอะไรเรา",date:"ก.ค. 2569"},
+        {cat:"พลังงาน",title:"อธิบายกังหันลมขนาดเล็กสำหรับเจ้าของอาคาร",date:"ก.ค. 2569"},
+        {cat:"บริษัท",title:"แนวทางการนำเข้าอุปกรณ์การแพทย์ที่ได้รับรอง",date:"มิ.ย. 2569"},
+        {cat:"พลังงาน",title:"ลมหรือแสงอาทิตย์: แบบไหนเหมาะกับพื้นที่ของคุณ",date:"มิ.ย. 2569"},
+        {cat:"สุขภาพ",title:"อ่านแนวโน้มน้ำตาลของคุณ: คู่มือสำหรับมือใหม่",date:"พ.ค. 2569"},
+        {cat:"บริษัท",title:"การสร้างพันธมิตรข้ามพรมแดน",date:"พ.ค. 2569"}
+      ],
+      nlTitle:"ติดตามข่าวสาร", nlDesc:"รับบทความใหม่ด้านเทคโนโลยีการแพทย์และพลังงานสะอาด ส่งตรงถึงอีเมลคุณ", nlPlaceholder:"อีเมลของคุณ", nlBtn:"สมัครรับข่าว"
+    },
+    contact:{
+      eyebrow:"ติดต่อเรา", h1:"มาสร้างสิ่งดีๆ ไปด้วยกัน", sub:"พันธมิตร ตัวแทนจำหน่าย บุคลากรทางการแพทย์ และนักลงทุน ติดต่อเราได้ ทีมงานจะตอบกลับภายในสองวันทำการ",
+      formTitle:"ส่งข้อความถึงเรา",
+      fName:"ชื่อ-นามสกุล", fCompany:"บริษัท", fEmail:"อีเมล", fCountry:"ประเทศ",
+      fInterest:"ฉันสนใจเรื่อง", interests:["การแพทย์ / CGM","พลังงาน / ลม","ความร่วมมือ","การลงทุน"],
+      fMessage:"ข้อความ", fSubmit:"ส่งคำสอบถาม",
+      partnerTag:"สำหรับพันธมิตรต่างชาติ", partnerTitle:"สอบถามด้านพันธมิตร & จัดจำหน่าย", partnerDesc:"ผู้ผลิตที่ต้องการเข้าสู่ตลาดไทย เราให้บริการจัดหา ขึ้นทะเบียน และจัดจำหน่ายครบวงจร",
+      details:[{k:"อีเมล",v:"contact@primelifeapex.com"},{k:"โทรศัพท์",v:"+66 2 000 0000"},{k:"สำนักงาน",v:"กรุงเทพมหานคร ประเทศไทย"},{k:"เวลาทำการ",v:"จันทร์–ศุกร์ · 9:00–18:00 น."}]
+    },
+    footer:{blurb:"ผู้นำเข้าและจัดจำหน่ายที่เชื่อมนวัตกรรมการแพทย์และพลังงานสะอาดระดับโลกเข้ากับตลาดไทย", col1:"กลุ่มธุรกิจ", col2:"บริษัท", col3:"ติดต่อ", partner:"ร่วมเป็นพันธมิตร", rights:"สงวนลิขสิทธิ์"}
+  }
+};
+
+class Component extends DCLogic {
+  state = { page:"home", lang:"en", isMobile:false, menuOpen:false };
+  componentDidMount(){ this._u=()=>this.setState({isMobile: window.innerWidth<860}); this._u(); window.addEventListener("resize",this._u); }
+  componentWillUnmount(){ if(this._u) window.removeEventListener("resize",this._u); }
+  go(p){ this.setState({page:p, menuOpen:false}); if(typeof window!=="undefined") window.scrollTo(0,0); }
+  renderVals(){
+    const lang = this.state.lang, page = this.state.page;
+    const active="#17366b", idle="#58627a";
+    return {
+      t: C[lang], lang, page,
+      isMobile:this.state.isMobile, isDesktop:!this.state.isMobile, mobileOpen:this.state.isMobile&&this.state.menuOpen,
+      toggleMenu:()=>this.setState(s=>({menuOpen:!s.menuOpen})),
+      isHome:page==="home", isMedical:page==="medical", isEnergy:page==="energy", isBlog:page==="blog", isContact:page==="contact",
+      navc:{
+        home: page==="home"?active:idle,
+        medical: page==="medical"?active:idle,
+        energy: page==="energy"?active:idle,
+        blog: page==="blog"?active:idle,
+        contact: page==="contact"?active:idle,
+        en: lang==="en"?active:"#9aa3b6",
+        th: lang==="th"?active:"#9aa3b6"
+      },
+      goHome:()=>this.go("home"), goMedical:()=>this.go("medical"), goEnergy:()=>this.go("energy"), goBlog:()=>this.go("blog"), goContact:()=>this.go("contact"),
+      setEN:()=>this.setState({lang:"en"}), setTH:()=>this.setState({lang:"th"})
+    };
+  }
+}
+</script>
+</body>
+</html>
